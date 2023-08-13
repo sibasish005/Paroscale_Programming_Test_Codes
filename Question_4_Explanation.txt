@@ -1,0 +1,5 @@
+In the provided code, the bug revolves around the count variable, which aims to keep track of the number of items in the buffer. The problem is that the count variable is being manipulated outside the mutex-protected sections of the code.
+
+In the add_data function, the count variable is incremented after appending a new node to the linked list, but this is done outside the mutex-protected region. As a result, multiple producer threads can concurrently increment count without proper synchronization, leading to data corruption.
+
+Similarly, in the remove_data function, the count variable is decremented after removing a node from the linked list. Like before, this operation occurs outside the mutex-protected region, which can result in race conditions and incorrect count values and also added the "free(temp)" statement after removing a node in the remove_data function to properly release the memory occupied by the removed node.
